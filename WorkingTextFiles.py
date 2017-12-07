@@ -21,5 +21,9 @@ text = text.split()
 for line in text:
     for word in line.split():
         if word.lower() not in stop_words:
-            print(word.lower())
+            word = word.lower()
+            punctuation = ".,"
+            for char in punctuation:
+                word = word.replace(char,"")
+            # print(word)
             newFile.write(word+" ")
