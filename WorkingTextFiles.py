@@ -23,24 +23,3 @@ for line in text:
         if word.lower() not in stop_words:
             print(word.lower())
             newFile.write(word+" ")
-
-
-
-
-# import csv
-#
-# with open('/Users/jenniferarnold/Downloads/un-general-debates 2.csv', 'r') as csvfile:
-#     reader = csv.reader(csvfile)
-#     for row in reader:
-#         # create file with some filename in pathWhereTheseThingsGo
-#         titleName = row[1:3]
-#         titleString = ''.join(titleName)
-#
-#         # print(titleString)
-#         # print(type(row[3]))
-#         f = open(titleString, "w+")
-#
-#         f.write(row[3])
-
-
-
