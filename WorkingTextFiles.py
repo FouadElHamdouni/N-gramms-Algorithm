@@ -1,7 +1,7 @@
 from stop_words import get_stop_words
 import string
 
-path = '/Users/jenniferarnold/PycharmProjects/N-gramms-Algorithm/Papers/FederalistNo.84Hamilton.txt'
+path = '/Users/jenniferarnold/PycharmProjects/N-gramms-Algorithm/Papers/FederalistNo.10Madison.txt'
 titleName = path[64:]
 print(titleName)
 # Make a new file
