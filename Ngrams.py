@@ -1,3 +1,5 @@
+#-------------------------------------------------------------------------
+
 import nltk
 # nltk.download('punkt')
 from nltk import word_tokenize
@@ -5,12 +7,24 @@ from nltk.util import ngrams
 from collections import Counter
 import numpy as np
 import numpy.linalg
+#-------------------------------------------------------------------------
 
-path = "/Users/jenniferarnold/PycharmProjects/N-gramms-Algorithm/Papers_sanitized/FederalistNo_2_san.txt"
+
+path = "Papers_sanitized/FederalistNo_2_san.txt"
 file = open(path, 'r', errors='replace')
 text = file.read()
 text = text.split()
 
+
+def find_ngrams(text):
+    bigram = []
+    for i in range(len(text)-1):
+        bigram.append((text[i], text[i+1]))
+    return bigram
+
+print(dict(Counter(find_ngrams(text))))
+
+#-------------------------------------------------------------------------
 # print(text)
 # token = nltk.word_tokenize(text)
 # bigrams = ngrams(token, 2)
@@ -19,14 +33,13 @@ text = text.split()
 # fivegrams = ngrams(token, 5)
 #
 # print(Counter(bigrams))
+#-------------------------------------------------------------------------
 
-
-
-def find_ngrams(text):
-    bigram = []
-    for i in range(len(text)-1):
-        bigram.append((text[i], text[i+1]))
-    return bigram
+#
+# def makeIndividualFreqSet(c, a):
+#     c = counter
+#     allBigrams = a
+#     for each bigram in allBigrams:
 
 
 def cosine_similarity(a, b):
@@ -44,6 +57,5 @@ sentence_w = np.array([0, 0, 4, 1, 0, 0, 1, 4, 1])
 first = cosine_similarity(sentence_h, sentence_w)
 print(first)
 
-# print(Counter(find_ngrams(text)))
 
 
