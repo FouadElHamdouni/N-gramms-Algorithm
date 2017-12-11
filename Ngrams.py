@@ -30,7 +30,7 @@ file = open(path, 'r', errors='replace')
 text1 = file.read()
 text1 = text1.split()
 
-path = "Papers_sanitized/FederalistNo_84_san.txt"
+path = "Papers_sanitized/FederalistNo_10_san_A.txt"
 file = open(path, 'r', errors='replace')
 text2 = file.read()
 text2 = text2.split()
@@ -45,6 +45,7 @@ def find_ngrams(text):
     for i in range(len(text)-1):
         bigram.append((text[i], text[i+1]))
     return bigram
+
 
 def CountertoDict(text1, text2):
     """Given two texts, the method converts the Counter for each text and returns all the bigrams from both texts"""
@@ -73,7 +74,7 @@ def makeIndividualFreqSet(counterForTextFile, allList):
     for bigram in allBigrams:
         # find bigram in counter
         if (bigram in dictionary):
-            freq = dictionary.get[bigram]
+            freq = dictionary.get(bigram)
             freqList.append(freq)
         else:
             freq = 0
@@ -90,24 +91,30 @@ def cosine_similarity(a, b):
     return dot_product / (norm_a*norm_b)
 
 #-------------------------------------------------------------------------
+
+# Dictionary frequency for the first text
 nGramsText1 = find_ngrams(text1)
 dictFreqText1 = dict(Counter(nGramsText1))
 
+
+# Dictionary frequency for the second text
 nGramsText2 = find_ngrams(text2)
 dictFreqText2 = dict(Counter(nGramsText2))
 
-print(CountertoDict(text1, text2))
+nGramsDict = CountertoDict(text1, text2)
 
-listOfNum = [1, 1, 1, 1, 0, 0, 0, 0, 0]
-sentence_m = np.array(listOfNum)
-sentence_h = np.array([0, 3, 1, 1, 1, 2, 0, 0, 0])
-sentence_w = np.array([0, 0, 4, 1, 0, 0, 1, 4, 1])
+# print("======= TESTING ========")
+# print(makeIndividualFreqSet(dictFreqText1, nGramsDict))
 
-first = cosine_similarity(sentence_h, sentence_w)
+setFreqText1 = makeIndividualFreqSet(dictFreqText1, nGramsDict)
+setFreqText2 = makeIndividualFreqSet(dictFreqText2, nGramsDict)
+
+sentence_m = np.array(setFreqText1)
+sentence_h = np.array(setFreqText2)
+
+
+first = cosine_similarity(sentence_h, sentence_m)
 print(first)
-
-# Each bigram is going to be a tuple
-print(dict(Counter(find_ngrams(text1))))
 
 
 
