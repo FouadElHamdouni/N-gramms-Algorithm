@@ -1,36 +1,43 @@
+""" ------------------------------------------------------------------------
+File: NGrams.py
+Author: Fouad El Hamdouni and Jennifer Arnold
+Date: December 2017
 
-"-------------------------------------------------------------------------"
+This file contains an implementation of N-Grams, specifically bigrams where it takes in a two textfiles found
+in the Paper Santitized folder of this project. The bigrams are returned as a dictionary and the Counter
+package accumulates the frequency and retuns a list of tuples, using the birgram as the key and the
+frequency as its value.
+
+NOTES:
+  * this DOES NOT make use of the NLP Python library
+  * print statements are Python 3 style,
+  * Must be run in Python 3.4
+----------------------------------------------------------------------------
+"""
 "Imports"
-import nltk
-# nltk.download('punkt')
-from nltk import word_tokenize
-from nltk.util import ngrams
+
 from collections import Counter
 import numpy as np
-import numpy.linalg
-#-------------------------------------------------------------------------
 
 
-path = "Papers_sanitized/FederalistNo_2_san.txt"
+#------------------------------------------------------------------------
+# The section where you can add in two files to be read and words split.
+# Files must be found in the Paper sanitized folder, if you would like to add in a new text file
+# you must "sanitize it" by using the Working Text Files class and drag the file to the sanitized folder.
+
+path = "Papers_sanitized/FederalistNo_10_san.txt"
 file = open(path, 'r', errors='replace')
-text = file.read()
-text = text.split()
+text1 = file.read()
+text1 = text1.split()
+
+path = "Papers_sanitized/FederalistNo_84_san.txt"
+file = open(path, 'r', errors='replace')
+text2 = file.read()
+text2 = text2.split()
 
 
 #-------------------------------------------------------------------------
-# print(text)
-# token = nltk.word_tokenize(text)
-# bigrams = ngrams(token, 2)
-# trigrams = ngrams(token, 3)
-# fourgrams = ngrams(token, 4)
-# fivegrams = ngrams(token, 5)
-#
-# print(Counter(bigrams))
-#-------------------------------------------------------------------------
-
-
-# ------------------------------ Methods ---------------------------------
-#-------------------------------------------------------------------------
+# The section that follows contains all the main and helper methods.
 
 def find_ngrams(text):
     """Given a text, the method parses through the text and finds all the bigrams."""
@@ -38,6 +45,20 @@ def find_ngrams(text):
     for i in range(len(text)-1):
         bigram.append((text[i], text[i+1]))
     return bigram
+
+def CountertoDict(text1, text2):
+    dict1 = dict(Counter(find_ngrams(text1)))
+    print("dict1 is:" + str(dict1))
+    dict2 = dict(Counter(find_ngrams(text2)))
+    dict3 = merge_two_dicts(dict1, dict2)
+    return list(dict3.keys())
+
+
+def merge_two_dicts(x, y):
+    z = x.copy()   # start with x's keys and values
+    z.update(y)    # modifies z with y's keys and values & returns None
+    return z
+
 
 def makeIndividualFreqSet(counterForTextFile, allList):
     """ Method takes in dictionary for a textfile and a list of all the bigrams, returning an frequency list for one particular textfile.
@@ -70,6 +91,10 @@ def cosine_similarity(a, b):
 #-------------------------------------------------------------------------
 
 # Example
+
+print(Counter(find_ngrams(text2)))
+print(CountertoDict(text1, text2))
+
 listOfNum = [1, 1, 1, 1, 0, 0, 0, 0, 0]
 sentence_m = np.array(listOfNum)
 sentence_h = np.array([0, 3, 1, 1, 1, 2, 0, 0, 0])
@@ -79,7 +104,7 @@ first = cosine_similarity(sentence_h, sentence_w)
 print(first)
 
 # Each bigram is going to be a tuple
-print(dict(Counter(find_ngrams(text))))
+print(dict(Counter(find_ngrams(text1))))
 
 
 
