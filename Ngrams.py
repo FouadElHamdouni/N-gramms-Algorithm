@@ -47,14 +47,15 @@ def find_ngrams(text):
     return bigram
 
 def CountertoDict(text1, text2):
+    """Given two texts, the method converts the Counter for each text and returns all the bigrams from both texts"""
     dict1 = dict(Counter(find_ngrams(text1)))
-    print("dict1 is:" + str(dict1))
     dict2 = dict(Counter(find_ngrams(text2)))
     dict3 = merge_two_dicts(dict1, dict2)
     return list(dict3.keys())
 
 
 def merge_two_dicts(x, y):
+    """This is a helper function to merge two dictionnaries together"""
     z = x.copy()   # start with x's keys and values
     z.update(y)    # modifies z with y's keys and values & returns None
     return z
