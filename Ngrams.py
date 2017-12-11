@@ -21,7 +21,7 @@ import numpy as np
 
 
 #------------------------------------------------------------------------
-# The section where you can add in two files to be read and words split.
+# The section that follows is where you can add in two files to be read and words split.
 # Files must be found in the Paper sanitized folder, if you would like to add in a new text file
 # you must "sanitize it" by using the Working Text Files class and drag the file to the sanitized folder.
 
@@ -89,10 +89,12 @@ def cosine_similarity(a, b):
     return dot_product / (norm_a*norm_b)
 
 #-------------------------------------------------------------------------
+nGramsText1 = find_ngrams(text1)
+dictFreqText1 = dict(Counter(nGramsText1))
 
-# Example
+nGramsText2 = find_ngrams(text2)
+dictFreqText2 = dict(Counter(nGramsText2))
 
-print(Counter(find_ngrams(text2)))
 print(CountertoDict(text1, text2))
 
 listOfNum = [1, 1, 1, 1, 0, 0, 0, 0, 0]
